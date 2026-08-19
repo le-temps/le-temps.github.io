@@ -64,30 +64,50 @@ const {
     <!-- ViewTransitions for static persistent header and seamless page navigation -->
     <ViewTransitions />
 
-    <!-- Immediate Theme Initialization Script -->
+    <!-- 100% Fail-safe Global Theme Management Script -->
     <script is:inline>
-      function applyTheme() {
-        const themeValue = (() => {
-          if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-            return localStorage.getItem('theme');
-          }
-          if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return 'dark';
-          }
-          return 'light';
-        })();
-
-        if (themeValue === 'dark') {
+      window.setDarkMode = function(isDark) {
+        if (isDark) {
           document.documentElement.classList.add('dark');
           document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
         } else {
           document.documentElement.classList.remove('dark');
           document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('theme', 'light');
         }
-      }
+        const moon = document.getElementById('moon-svg');
+        const sun = document.getElementById('sun-svg');
+        if (moon && sun) {
+          if (isDark) {
+            moon.classList.add('hidden');
+            sun.classList.remove('hidden');
+          } else {
+            sun.classList.add('hidden');
+            moon.classList.remove('hidden');
+          }
+        }
+      };
 
-      applyTheme();
-      document.addEventListener('astro:after-swap', applyTheme);
+      window.toggleTheme = function() {
+        const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark';
+        window.setDarkMode(!isDark);
+      };
+
+      // Initial execution
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initialDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+      window.setDarkMode(initialDark);
+
+      document.addEventListener('astro:page-load', () => {
+        const currentDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark';
+        window.setDarkMode(currentDark);
+      });
+      document.addEventListener('astro:after-swap', () => {
+        const saved = localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        window.setDarkMode(saved);
+      });
     </script>
   </head>
 

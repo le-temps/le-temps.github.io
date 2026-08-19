@@ -3,10 +3,10 @@
 
 <button
   id="theme-btn"
-  class="p-2 sm:p-1 hover:text-skin-accent transition-colors"
+  class="p-2 sm:p-1 hover:text-skin-accent transition-colors focus:outline-none"
   title="Toggles light & dark"
-  aria-label="auto"
-  aria-live="polite"
+  aria-label="Toggle theme"
+  onclick="window.toggleTheme()"
 >
   <svg
     id="moon-svg"
@@ -37,47 +37,3 @@
     ></path>
   </svg>
 </button>
-
-<script is:inline>
-  function applyTheme(theme) {
-    const isDark = theme === 'dark';
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      document.documentElement.setAttribute('data-theme', 'dark');
-      const moon = document.getElementById('moon-svg');
-      const sun = document.getElementById('sun-svg');
-      if (moon) moon.classList.add('hidden');
-      if (sun) sun.classList.remove('hidden');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.documentElement.setAttribute('data-theme', 'light');
-      const moon = document.getElementById('moon-svg');
-      const sun = document.getElementById('sun-svg');
-      if (sun) sun.classList.add('hidden');
-      if (moon) moon.classList.remove('hidden');
-    }
-  }
-
-  function setupThemeToggle() {
-    const currentTheme = localStorage.getItem('theme') || 
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    applyTheme(currentTheme);
-
-    const themeBtn = document.getElementById('theme-btn');
-    if (themeBtn) {
-      themeBtn.onclick = () => {
-        const isDark = document.documentElement.classList.contains('dark');
-        const nextTheme = isDark ? 'light' : 'dark';
-        localStorage.setItem('theme', nextTheme);
-        applyTheme(nextTheme);
-      };
-    }
-  }
-
-  setupThemeToggle();
-  document.addEventListener('astro:page-load', setupThemeToggle);
-  document.addEventListener('astro:after-swap', () => {
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    applyTheme(currentTheme);
-  });
-</script>

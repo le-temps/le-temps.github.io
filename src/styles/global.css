@@ -2,11 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "./base.css";
+/* CSS Variables for AstroPaper theme */
+:root {
+  --color-fill: 251, 254, 251;
+  --color-text-base: 40, 39, 40;
+  --color-accent: 0, 108, 172;
+  --color-card: 230, 230, 230;
+  --color-card-muted: 205, 205, 205;
+  --color-border: 220, 220, 220;
+}
 
-/* Prevent layout shift when scrollbars appear */
+html[data-theme="dark"],
+html.dark {
+  --color-fill: 33, 39, 55;
+  --color-text-base: 234, 237, 243;
+  --color-accent: 255, 107, 0;
+  --color-card: 52, 63, 96;
+  --color-card-muted: 138, 51, 3;
+  --color-border: 171, 75, 8;
+}
+
+/* Prevent layout shift */
 html {
   overflow-y: scroll;
+}
+
+@layer base {
+  body {
+    @apply min-h-screen bg-skin-fill font-mono text-skin-base selection:bg-skin-accent selection:bg-opacity-70 selection:text-skin-fill;
+  }
+  section,
+  footer {
+    @apply mx-auto max-w-3xl px-4;
+  }
+  a {
+    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
+  }
+  .prose {
+    @apply prose-headings:!mb-3 prose-headings:!text-skin-base 
+           prose-h2:!text-xl prose-h2:!font-semibold
+           prose-h3:!text-lg prose-h3:!font-medium
+           prose-p:!text-skin-base prose-p:!opacity-90
+           prose-a:!text-skin-accent prose-a:underline-offset-4 prose-a:decoration-dashed hover:prose-a:underline
+           prose-blockquote:!border-l-skin-accent
+           prose-blockquote:border-opacity-50
+           prose-blockquote:opacity-80
+           prose-strong:!text-skin-base
+           prose-code:rounded prose-code:bg-skin-card 
+           prose-code:bg-opacity-75 prose-code:p-1 prose-code:!text-skin-base 
+           prose-code:before:!content-[''] prose-code:after:!content-['']
+           prose-pre:!border prose-pre:!border-skin-line 
+           prose-pre:!bg-skin-card prose-pre:!text-skin-base
+           prose-ol:!text-skin-base 
+           prose-ul:!text-skin-base prose-li:my-0.5
+           prose-li:marker:!text-skin-accent
+           prose-table:text-skin-base
+           prose-th:border prose-th:border-skin-line
+           prose-td:border prose-td:border-skin-line;
+  }
 }
 
 /* Code copy button */
