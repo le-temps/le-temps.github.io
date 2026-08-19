@@ -4,6 +4,11 @@
 
 @import "./base.css";
 
+/* Prevent layout shift when scrollbars appear */
+html {
+  overflow-y: scroll;
+}
+
 /* Code copy button */
 .copy-code {
   position: absolute;
