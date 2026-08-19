@@ -21,15 +21,15 @@ const href = `/posts/${post.slug}`;
     class="inline-block text-lg font-medium text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0 hover:underline"
   >
     {secHeading ? (
-      <h2 class="text-lg font-medium decoration-dashed hover:underline">
+      <h2 class="text-lg font-medium decoration-dashed hover:underline text-skin-accent">
         {title}
       </h2>
     ) : (
-      <h3 class="text-lg font-medium decoration-dashed hover:underline">
+      <h3 class="text-lg font-medium decoration-dashed hover:underline text-skin-accent">
         {title}
       </h3>
     )}
   </a>
   <Datetime datetime={date} readingTime={readingTime} />
-  <p class="mt-1 text-skin-base opacity-90 text-sm leading-relaxed">{description}</p>
+  <p class="mt-1 text-skin-base opacity-90 text-sm leading-relaxed font-mono">{description}</p>
 </li>

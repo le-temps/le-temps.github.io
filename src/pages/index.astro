@@ -6,39 +6,42 @@ import { getPublishedPosts } from '../utils/content';
 
 const posts = await getPublishedPosts();
 const featuredPosts = posts.filter((p) => p.data.featured);
-const recentPosts = posts.slice(0, 4);
+const displayFeatured = featuredPosts.length > 0 ? featuredPosts : posts.slice(0, 3);
+const recentPosts = posts.filter((p) => !displayFeatured.includes(p));
 ---
 
 <BaseLayout>
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4">
-    <!-- Hero Section -->
+    <!-- Hero Section strictly matching screenshot -->
     <section id="hero" class="pt-8 pb-6">
-      <h1 class="my-4 inline-block text-3xl font-bold sm:my-8 sm:text-5xl tracking-tight text-skin-accent">
-        Hi there, I'm Joy 👋
-      </h1>
-      <a
-        target="_blank"
-        href="/rss.xml"
-        class="inline-block p-2 sm:p-1 text-skin-accent hover:rotate-6 transition-transform"
-        aria-label="rss feed"
-        title="RSS Feed"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path d="M4 11a9 9 0 0 1 9 9" />
-          <path d="M4 4a16 16 0 0 1 16 16" />
-          <circle cx="5" cy="19" r="1" />
-        </svg>
-      </a>
+      <div class="flex items-baseline gap-2 my-4 sm:my-8">
+        <h1 class="text-4xl font-bold sm:text-6xl tracking-tight text-skin-base font-mono">
+          Mingalaba
+        </h1>
+        <a
+          target="_blank"
+          href="/rss.xml"
+          class="inline-block p-1 text-skin-accent hover:rotate-6 transition-transform"
+          aria-label="rss feed"
+          title="RSS Feed"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18a2 2 0 100-4 2 2 0 000 4z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4a16 16 0 0116 16" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 11a9 9 0 019 9" />
+          </svg>
+        </a>
+      </div>
 
-      <p class="my-2 leading-relaxed text-skin-base opacity-90">
-        I am a graduate researcher at <strong class="text-skin-accent">University of Science and Technology of China (USTC)</strong> focusing on <strong class="text-skin-accent">Large Language Models (LLM)</strong>, <strong class="text-skin-accent">Autonomous AI Agents</strong>, and open-source systems.
+      <p class="my-3 leading-relaxed text-skin-base opacity-90 text-base font-mono">
+        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro blog theme. I am <strong class="font-bold">Joy (@le-temps)</strong>, an AI Agent & LLM researcher at <strong class="font-bold">University of Science and Technology of China (USTC)</strong>.
       </p>
-      <p class="my-2 leading-relaxed text-skin-base opacity-90">
-        Here I document my technical explorations, DeepSeek Harness architecture insights, research notes, and philosophical reflections.
+      <p class="my-3 leading-relaxed text-skin-base opacity-90 text-base font-mono">
+        Read the blog posts or check <a href="/about" class="underline decoration-dashed text-skin-base hover:text-skin-accent underline-offset-4">README</a> for more info.
       </p>
 
-      <div class="mt-4 flex flex-col sm:flex-row sm:items-center">
-        <div class="mr-2 mb-1 whitespace-nowrap sm:mb-0 font-medium text-sm">
+      <div class="mt-6 flex flex-col sm:flex-row sm:items-center">
+        <div class="mr-3 mb-1 whitespace-nowrap sm:mb-0 font-medium text-sm text-skin-base font-mono">
           Social Links:
         </div>
         <Socials />
@@ -47,38 +50,39 @@ const recentPosts = posts.slice(0, 4);
 
     <hr class="border-skin-line border-dashed my-6" />
 
-    <!-- Featured Section -->
-    {featuredPosts.length > 0 && (
-      <section id="featured" class="pt-6 pb-6">
-        <h2 class="text-2xl font-semibold tracking-wide text-skin-base">Featured</h2>
-        <ul>
-          {featuredPosts.map((post) => (
-            <Card post={post} secHeading={false} />
-          ))}
-        </ul>
-      </section>
-      <hr class="border-skin-line border-dashed my-6" />
-    )}
-
-    <!-- Recent Posts Section -->
-    <section id="recent-posts" class="pt-6 pb-6">
-      <h2 class="text-2xl font-semibold tracking-wide text-skin-base">Recent Posts</h2>
+    <!-- Featured Section with Blue Accent Titles matching screenshot -->
+    <section id="featured" class="pt-6 pb-6">
+      <h2 class="text-2xl font-bold tracking-wide text-skin-base font-mono">Featured</h2>
       <ul>
-        {recentPosts.map((post) => (
+        {displayFeatured.map((post) => (
           <Card post={post} secHeading={false} />
         ))}
       </ul>
-      <div class="my-8 text-center">
-        <a
-          href="/posts"
-          class="btn-all-posts inline-flex items-center gap-1 font-medium text-skin-accent hover:underline decoration-dashed underline-offset-4"
-        >
-          All Posts
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
-      </div>
     </section>
+
+    {recentPosts.length > 0 && (
+      <>
+        <hr class="border-skin-line border-dashed my-6" />
+        <section id="recent-posts" class="pt-6 pb-6">
+          <h2 class="text-2xl font-bold tracking-wide text-skin-base font-mono">Recent Posts</h2>
+          <ul>
+            {recentPosts.map((post) => (
+              <Card post={post} secHeading={false} />
+            ))}
+          </ul>
+          <div class="my-8 text-center">
+            <a
+              href="/posts"
+              class="btn-all-posts inline-flex items-center gap-1 font-medium text-skin-accent hover:underline decoration-dashed underline-offset-4 font-mono text-sm"
+            >
+              All Posts
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </section>
+      </>
+    )}
   </main>
 </BaseLayout>
