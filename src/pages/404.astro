@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 - 页面未找到 | Joy (@le-temps)"
+  description="抱歉，您访问的页面不存在。"
+>
+  <div class="py-24 text-center space-y-6 max-w-md mx-auto">
+    <div class="text-7xl font-extrabold text-brand-500 font-mono">404</div>
+    <h1 class="text-2xl font-bold text-slate-900 dark:text-white">页面未找到</h1>
+    <p class="text-sm text-slate-500 dark:text-slate-400">
+      你探索的这片知识星系似乎尚未被开辟，或者文章已被重构迁移。
+    </p>
+    <div class="pt-4">
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow-lg transition-all"
+      >
+        <span>← 返回博客首页</span>
+      </a>
+    </div>
+  </div>
+</BaseLayout>

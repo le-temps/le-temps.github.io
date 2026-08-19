@@ -1,0 +1,32 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="w-full border-t border-slate-200/80 dark:border-slate-800/80 bg-slate-50/50 dark:bg-slate-950/50 py-12 mt-20 transition-colors">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-slate-500 dark:text-slate-400">
+    <div class="flex items-center gap-3">
+      <span class="w-6 h-6 rounded-lg bg-gradient-to-tr from-brand-500 to-indigo-500 flex items-center justify-center text-white text-[10px] font-mono font-bold">
+        J
+      </span>
+      <span>© {currentYear} Joy (le-temps) · USTC AI Researcher</span>
+    </div>
+
+    <div class="flex items-center gap-6 text-xs font-medium">
+      <a href="/rss.xml" class="hover:text-brand-500 transition-colors flex items-center gap-1">
+        <span>RSS Feed</span>
+      </a>
+      <a href="https://github.com/le-temps" target="_blank" rel="noopener noreferrer" class="hover:text-brand-500 transition-colors">
+        GitHub
+      </a>
+      <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="hover:text-brand-500 transition-colors">
+        Twitter
+      </a>
+      <a href="mailto:contact@le-temps.dev" class="hover:text-brand-500 transition-colors">
+        Email
+      </a>
+      <a href="/archive" class="hover:text-brand-500 transition-colors">
+        Archive
+      </a>
+    </div>
+  </div>
+</footer>

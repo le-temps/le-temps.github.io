@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getArchiveByYear } from '../utils/content';
+import { getReadingTime } from '../utils/readingTime';
+
+const archive = await getArchiveByYear();
+---
+
+<BaseLayout
+  title="归档时间线 · Archive | Joy (@le-temps)"
+  description="按年份与时间线索引的全部技术博客与科研随笔。"
+>
+  <div class="py-12 max-w-3xl mx-auto space-y-12">
+    <!-- Header -->
+    <div class="space-y-3">
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        文章归档 · Timeline
+      </h1>
+      <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+        时间的长河中，记录每一次对未知技术的探索与思考。
+      </p>
+    </div>
+
+    <!-- Archive Timeline -->
+    <div class="space-y-12">
+      {archive.map(({ year, posts }) => (
+        <div class="space-y-6">
+          <div class="flex items-center gap-4">
+            <h2 class="text-3xl font-extrabold text-brand-500 font-mono">
+              {year}
+            </h2>
+            <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800" />
+            <span class="text-xs text-slate-400 font-mono font-medium">
+              {posts.length} 篇
+            </span>
+          </div>
+
+          <ul class="space-y-4 border-l border-slate-200 dark:border-slate-800 ml-4 pl-6">
+            {posts.map((post) => {
+              const dateStr = post.data.date.toLocaleDateString('zh-CN', {
+                month: '2-digit',
+                day: '2-digit',
+              });
+              const readingTime = getReadingTime(post.body);
+
+              return (
+                <li class="relative group">
+                  {/* Timeline Dot */}
+                  <span class="absolute -left-[31px] top-2 w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700 group-hover:bg-brand-500 group-hover:scale-125 transition-all" />
+
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4">
+                    <a
+                      href={`/blog/${post.slug}`}
+                      class="text-base font-semibold text-slate-800 dark:text-slate-200 group-hover:text-brand-500 transition-colors"
+                    >
+                      {post.data.title}
+                    </a>
+                    <div class="flex items-center gap-2 text-xs text-slate-400 font-mono shrink-0">
+                      <span>{dateStr}</span>
+                      <span>·</span>
+                      <span>{post.data.category}</span>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

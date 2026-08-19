@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import PostCard from '../components/PostCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getPublishedPosts, getCategoriesWithCount } from '../utils/content';
+
+const posts = await getPublishedPosts();
+const featuredPosts = posts.filter((p) => p.data.featured).slice(0, 3);
+const latestPosts = posts.slice(0, 4);
+const categories = await getCategoriesWithCount();
+
+const projects = [
+  {
+    title: 'dsh-plugins-hub',
+    description: 'DeepSeek Harness 官方生态插件中心：提供长期自进化记忆、Token 上下文智能压缩、高危命令安全守卫与跨工具死循环防护。',
+    tags: ['DeepSeek', 'Cordis', 'TypeScript', 'AI-Agent'],
+    githubUrl: 'https://github.com/le-temps/dsh-plugins-hub',
+    featured: true,
+  },
+  {
+    title: 'ds2api',
+    description: '高性能 DeepSeek 逆向代理与标准 OpenAI 格式 API 网关服务，支持高速并发流式转发与上下文管理。',
+    tags: ['Go', 'API-Gateway', 'DeepSeek', 'Docker'],
+    githubUrl: 'https://github.com/le-temps/ds2api',
+  },
+  {
+    title: 'academic-research-skills',
+    description: '面向青年学者与工程师的高效科研工具箱，涵盖论文速读、实验追踪、LaTeX 排版与大模型辅助科研最佳实践。',
+    tags: ['Academic', 'Research', 'Toolkit', 'LaTeX'],
+    githubUrl: 'https://github.com/le-temps/academic-research-skills',
+  },
+];
+---
+
+<BaseLayout>
+  <!-- Hero Section -->
+  <Hero />
+
+  <!-- Featured / Latest Posts Section -->
+  <section class="py-12 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+          精选与最新文章 · Articles
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          深度技术拆解、算法推导与科研笔记
+        </p>
+      </div>
+      <a
+        href="/blog"
+        class="text-xs sm:text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+      >
+        <span>查看全量文章 →</span>
+      </a>
+    </div>
+
+    <!-- Category Pills -->
+    <div class="flex flex-wrap items-center gap-2 mb-8">
+      <a
+        href="/blog"
+        class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-600 text-white shadow-sm"
+      >
+        全部文章 ({posts.length})
+      </a>
+      {categories.map((c) => (
+        <a
+          href={`/category/${c.category}`}
+          class="px-3.5 py-1.5 rounded-xl text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:border-brand-500 hover:text-brand-500 transition-all shadow-sm"
+        >
+          {c.category} ({c.count})
+        </a>
+      ))}
+    </div>
+
+    <!-- Post Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {latestPosts.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Open Source Projects Section -->
+  <section id="projects" class="py-12 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+          开源项目与工具 · Open Source
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          在实际工程与科研场景中落地开源的系统与工具链
+        </p>
+      </div>
+      <a
+        href="https://github.com/le-temps"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs sm:text-sm font-semibold text-brand-600 dark:text-brand-400 hover:underline flex items-center gap-1"
+      >
+        <span>GitHub 组织主页 →</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {projects.map((proj) => (
+        <ProjectCard {...proj} />
+      ))}
+    </div>
+  </section>
+
+  <!-- GitHub Snake Game Section -->
+  <section class="py-12 border-t border-slate-200/80 dark:border-slate-800/80">
+    <div class="p-6 md:p-8 rounded-3xl bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 shadow-lg">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span>🐍 GitHub 贡献贪吃蛇 (Snake Game)</span>
+        </h3>
+        <a href="https://github.com/le-temps" target="_blank" class="text-xs text-brand-500 hover:underline">
+          GitHub Profile →
+        </a>
+      </div>
+      <div class="overflow-x-auto py-2 flex justify-center items-center">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/le-temps/le-temps.github.io/output/github-contribution-grid-snake-dark.svg" />
+          <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/le-temps/le-temps.github.io/output/github-contribution-grid-snake.svg" />
+          <img alt="le-temps GitHub Snake Animation" src="https://raw.githubusercontent.com/le-temps/le-temps.github.io/output/github-contribution-grid-snake-ocean.svg" class="max-w-full rounded" onerror="this.src='https://ghchart.rshah.org/3b82f6/le-temps'" />
+        </picture>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

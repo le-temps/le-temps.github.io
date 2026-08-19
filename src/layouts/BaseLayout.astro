@@ -1,0 +1,117 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  articleDate?: string;
+}
+
+const {
+  title = 'Joy (@le-temps) | LLM & AI Agent Researcher',
+  description = '个人技术博客与随笔：专注于大语言模型 (LLM)、AI Agent 自主智能体与科大科研手记。',
+  image = '/favicon.svg',
+  articleDate,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="zh-CN" class="scroll-smooth dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    <link rel="alternate" type="application/rss+xml" title="Joy's Blog RSS Feed" href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content="Joy (@le-temps)" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={articleDate ? 'article' : 'website'} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    {articleDate && <meta property="article:published_time" content={articleDate} />}
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(image, Astro.site)} />
+
+    <!-- Inline Dark Mode Init Script (No FOUC) -->
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'dark'; // default to dark
+      })();
+
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+  </head>
+
+  <body class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-brand-500 selection:text-white transition-colors">
+    <Header />
+    <main class="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6">
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- Global Client Script for Code Copy Buttons -->
+    <script>
+      function attachCopyButtons() {
+        const codeBlocks = document.querySelectorAll('pre.astro-code');
+        codeBlocks.forEach((pre) => {
+          if (pre.querySelector('.copy-code-btn')) return;
+
+          const container = document.createElement('div');
+          container.className = 'relative group';
+
+          // Copy button
+          const btn = document.createElement('button');
+          btn.className = 'copy-code-btn absolute top-3 right-3 px-2 py-1 rounded-lg text-xs font-mono bg-slate-800/80 text-slate-400 hover:text-white border border-slate-700/60 opacity-0 group-hover:opacity-100 transition-all';
+          btn.innerText = 'Copy';
+
+          btn.addEventListener('click', async () => {
+            const code = pre.querySelector('code')?.innerText || pre.innerText;
+            await navigator.clipboard.writeText(code);
+            btn.innerText = 'Copied!';
+            btn.classList.add('text-emerald-400', 'border-emerald-500/50');
+            setTimeout(() => {
+              btn.innerText = 'Copy';
+              btn.classList.remove('text-emerald-400', 'border-emerald-500/50');
+            }, 2000);
+          });
+
+          pre.parentNode?.insertBefore(container, pre);
+          container.appendChild(pre);
+          container.appendChild(btn);
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', attachCopyButtons);
+      attachCopyButtons();
+    </script>
+  </body>
+</html>

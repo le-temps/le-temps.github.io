@@ -1,0 +1,107 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ReadingProgress from '../components/ReadingProgress';
+import TOC from '../components/TOC';
+import ShareButtons from '../components/ShareButtons';
+import GiscusComments from '../components/GiscusComments';
+import { getReadingTime } from '../utils/readingTime';
+import type { Post } from '../utils/content';
+
+interface Props {
+  post: Post;
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const { post, headings } = Astro.props;
+const readingTime = getReadingTime(post.body);
+const formattedDate = post.data.date.toLocaleDateString('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={`${post.data.title} | Joy (@le-temps)`}
+  description={post.data.description}
+  articleDate={post.data.date.toISOString()}
+>
+  <ReadingProgress client:load />
+
+  <article class="pt-8 pb-16">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-6">
+      <a href="/" class="hover:text-brand-500">Home</a>
+      <span>/</span>
+      <a href="/blog" class="hover:text-brand-500">Blog</a>
+      <span>/</span>
+      <a href={`/category/${post.data.category}`} class="text-brand-500 font-medium">
+        {post.data.category}
+      </a>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="space-y-4 pb-8 border-b border-slate-200 dark:border-slate-800">
+      <div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+        <span class="px-2.5 py-1 rounded-lg font-semibold bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 border border-brand-200/60 dark:border-brand-800/50">
+          {post.data.category}
+        </span>
+        <time datetime={post.data.date.toISOString()}>{formattedDate}</time>
+        <span>·</span>
+        <span>{readingTime}</span>
+        <span>·</span>
+        <span>{post.data.author}</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+        {post.data.title}
+      </h1>
+
+      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-3xl">
+        {post.data.description}
+      </p>
+
+      <!-- Tags & Share Row -->
+      <div class="flex flex-wrap items-center justify-between gap-4 pt-4">
+        <div class="flex flex-wrap gap-1.5">
+          {post.data.tags.map((tag) => (
+            <a
+              href={`/tags/${tag}`}
+              class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-brand-500 hover:text-white dark:hover:bg-brand-500 dark:hover:text-white transition-colors"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+        <ShareButtons client:load title={post.data.title} />
+      </div>
+    </header>
+
+    <!-- Main Content & Floating TOC Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pt-8">
+      <!-- Article Prose (800px max reading width) -->
+      <div class="lg:col-span-8">
+        <div class="prose prose-slate dark:prose-invert prose-lg max-w-none prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:tracking-tight prose-a:text-brand-500 prose-img:rounded-2xl prose-pre:border prose-pre:border-slate-800">
+          <slot />
+        </div>
+
+        <!-- Giscus Comments -->
+        <GiscusComments client:visible />
+      </div>
+
+      <!-- Right Sidebar: Floating Table of Contents -->
+      <aside class="hidden lg:block lg:col-span-4">
+        <div class="sticky top-24 space-y-6">
+          <TOC client:load headings={headings} />
+          
+          <div class="p-4 rounded-2xl bg-slate-50/50 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/60 text-xs text-slate-500 dark:text-slate-400 space-y-2">
+            <div class="font-semibold text-slate-900 dark:text-white">关于作者</div>
+            <p class="leading-relaxed">
+              Joy (@le-temps)，中国科学技术大学 (USTC) 深度学习与 AI Agent 研究者。欢迎学术交流与开源合作！
+            </p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </article>
+</BaseLayout>
