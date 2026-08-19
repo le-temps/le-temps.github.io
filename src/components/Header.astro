@@ -9,20 +9,22 @@ const { activeNav } = Astro.props;
 ---
 
 <header class="mx-auto max-w-3xl px-4 pt-6 sm:pt-10">
-  <div class="flex items-center justify-between">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <!-- Logo -->
     <a
       href="/"
-      class="text-2xl font-bold font-sans tracking-tight hover:text-skin-accent transition-colors py-1 text-skin-base"
+      class="text-2xl sm:text-3xl font-bold font-mono tracking-tight hover:text-skin-accent transition-colors py-1 text-skin-base whitespace-nowrap"
     >
-      Joy (@le-temps)
+      AstroPaper
     </a>
 
-    <nav id="nav-menu" class="flex items-center space-x-3 sm:space-x-6">
-      <ul id="menu-items" class="flex items-center space-x-3 sm:space-x-6 text-base font-medium">
+    <!-- Nav Menu -->
+    <nav id="nav-menu">
+      <ul id="menu-items" class="flex items-center space-x-6 sm:space-x-8 text-base sm:text-lg font-mono font-medium">
         <li>
           <a
             href="/posts"
-            class={`hover:text-skin-accent ${activeNav === 'posts' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-8' : ''}`}
+            class={`hover:text-skin-accent transition-colors ${activeNav === 'posts' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-8' : ''}`}
           >
             Posts
           </a>
@@ -30,7 +32,7 @@ const { activeNav } = Astro.props;
         <li>
           <a
             href="/tags"
-            class={`hover:text-skin-accent ${activeNav === 'tags' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-8' : ''}`}
+            class={`hover:text-skin-accent transition-colors ${activeNav === 'tags' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-8' : ''}`}
           >
             Tags
           </a>
@@ -38,7 +40,7 @@ const { activeNav } = Astro.props;
         <li>
           <a
             href="/about"
-            class={`hover:text-skin-accent ${activeNav === 'about' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-8' : ''}`}
+            class={`hover:text-skin-accent transition-colors ${activeNav === 'about' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-8' : ''}`}
           >
             About
           </a>
@@ -46,7 +48,7 @@ const { activeNav } = Astro.props;
         <li>
           <a
             href="/archives"
-            class={`p-2 sm:p-1 hover:text-skin-accent transition-colors ${activeNav === 'archives' ? 'text-skin-accent' : ''}`}
+            class={`p-1 hover:text-skin-accent transition-colors inline-flex items-center ${activeNav === 'archives' ? 'text-skin-accent' : ''}`}
             aria-label="archives"
             title="Archives"
           >
@@ -64,7 +66,7 @@ const { activeNav } = Astro.props;
         <li>
           <a
             href="/search"
-            class={`p-2 sm:p-1 hover:text-skin-accent transition-colors ${activeNav === 'search' ? 'text-skin-accent' : ''}`}
+            class={`p-1 hover:text-skin-accent transition-colors inline-flex items-center ${activeNav === 'search' ? 'text-skin-accent' : ''}`}
             aria-label="search"
             title="Search"
           >
@@ -79,7 +81,7 @@ const { activeNav } = Astro.props;
             </svg>
           </a>
         </li>
-        <li>
+        <li class="inline-flex items-center">
           <ThemeToggle />
         </li>
       </ul>
