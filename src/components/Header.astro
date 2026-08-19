@@ -1,28 +1,28 @@
 ---
-import ThemeToggle from './ThemeToggle';
+import ThemeToggle from './ThemeToggle.astro';
 
 export interface Props {
-  activeNav?: 'posts' | 'tags' | 'about' | 'search';
+  activeNav?: 'posts' | 'tags' | 'about' | 'archives' | 'search';
 }
 
 const { activeNav } = Astro.props;
 ---
 
-<header class="mx-auto max-w-3xl px-4 pt-4 sm:pt-8">
+<header class="mx-auto max-w-3xl px-4 pt-6 sm:pt-10">
   <div class="flex items-center justify-between">
     <a
       href="/"
-      class="text-xl font-semibold sm:text-2xl font-mono tracking-tight hover:text-skin-accent transition-colors py-1"
+      class="text-2xl font-bold font-sans tracking-tight hover:text-skin-accent transition-colors py-1 text-skin-base"
     >
       Joy (@le-temps)
     </a>
 
-    <nav id="nav-menu" class="flex items-center space-x-2 sm:space-x-4">
-      <ul id="menu-items" class="flex items-center space-x-2 sm:space-x-4 text-sm sm:text-base">
+    <nav id="nav-menu" class="flex items-center space-x-3 sm:space-x-6">
+      <ul id="menu-items" class="flex items-center space-x-3 sm:space-x-6 text-base font-medium">
         <li>
           <a
             href="/posts"
-            class={`hover:text-skin-accent ${activeNav === 'posts' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-4' : ''}`}
+            class={`hover:text-skin-accent ${activeNav === 'posts' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-8' : ''}`}
           >
             Posts
           </a>
@@ -30,7 +30,7 @@ const { activeNav } = Astro.props;
         <li>
           <a
             href="/tags"
-            class={`hover:text-skin-accent ${activeNav === 'tags' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-4' : ''}`}
+            class={`hover:text-skin-accent ${activeNav === 'tags' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-8' : ''}`}
           >
             Tags
           </a>
@@ -38,15 +38,33 @@ const { activeNav } = Astro.props;
         <li>
           <a
             href="/about"
-            class={`hover:text-skin-accent ${activeNav === 'about' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-4' : ''}`}
+            class={`hover:text-skin-accent ${activeNav === 'about' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-8' : ''}`}
           >
             About
           </a>
         </li>
         <li>
           <a
+            href="/archives"
+            class={`p-2 sm:p-1 hover:text-skin-accent transition-colors ${activeNav === 'archives' ? 'text-skin-accent' : ''}`}
+            aria-label="archives"
+            title="Archives"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 stroke-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+            </svg>
+          </a>
+        </li>
+        <li>
+          <a
             href="/search"
-            class={`p-2 sm:p-1 hover:text-skin-accent focus-outline ${activeNav === 'search' ? 'text-skin-accent' : ''}`}
+            class={`p-2 sm:p-1 hover:text-skin-accent transition-colors ${activeNav === 'search' ? 'text-skin-accent' : ''}`}
             aria-label="search"
             title="Search"
           >
@@ -62,10 +80,10 @@ const { activeNav } = Astro.props;
           </a>
         </li>
         <li>
-          <ThemeToggle client:load />
+          <ThemeToggle />
         </li>
       </ul>
     </nav>
   </div>
-  <hr class="border-skin-line border-dashed my-4 sm:my-6" />
+  <hr class="border-skin-line border-dashed my-6" />
 </header>

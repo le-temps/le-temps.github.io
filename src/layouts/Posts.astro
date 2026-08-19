@@ -13,19 +13,30 @@ export interface Props {
 const {
   posts,
   pageTitle = 'Posts',
-  pageDesc = 'All the articles I\'ve posted.',
+  pageDesc = "All the articles I've posted.",
 } = Astro.props;
 ---
 
 <BaseLayout title={`${pageTitle} | Joy (@le-temps)`} activeNav="posts">
   <Breadcrumbs />
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
-    <h1 class="text-2xl font-semibold sm:text-3xl text-skin-accent">{pageTitle}</h1>
+    <h1 class="text-2xl font-semibold sm:text-3xl tracking-tight text-skin-base">{pageTitle}</h1>
     <p class="mt-2 mb-6 italic text-sm opacity-80">{pageDesc}</p>
     <ul>
       {posts.map((post) => (
         <Card post={post} />
       ))}
     </ul>
+
+    <!-- Pagination Footer matching screenshot -->
+    <div class="mt-12 flex justify-center items-center space-x-4 text-sm font-medium">
+      <span class="opacity-50 select-none flex items-center gap-1 cursor-not-allowed">
+        &#8592; Prev
+      </span>
+      <span class="text-skin-base font-mono">1 / 1</span>
+      <span class="opacity-50 select-none flex items-center gap-1 cursor-not-allowed">
+        Next &#8594;
+      </span>
+    </div>
   </main>
 </BaseLayout>

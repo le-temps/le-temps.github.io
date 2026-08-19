@@ -9,7 +9,7 @@ export interface Props {
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
-  activeNav?: 'posts' | 'tags' | 'about' | 'search';
+  activeNav?: 'posts' | 'tags' | 'about' | 'archives' | 'search';
 }
 
 const {
@@ -23,7 +23,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,27 +60,29 @@ const {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
 
-    <!-- Inline Dark Theme Script -->
+    <!-- Immediate Theme Initialization Script -->
     <script is:inline>
-      const theme = (() => {
+      const themeValue = (() => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
           return localStorage.getItem('theme');
         }
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           return 'dark';
         }
-        return 'dark';
+        return 'light';
       })();
 
-      if (theme === 'light') {
-        document.documentElement.classList.remove('dark');
-      } else {
+      if (themeValue === 'dark') {
         document.documentElement.classList.add('dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.setAttribute('data-theme', 'light');
       }
     </script>
   </head>
 
-  <body class="flex min-h-screen flex-col bg-skin-fill text-skin-base">
+  <body class="flex min-h-screen flex-col bg-skin-fill text-skin-base transition-colors duration-200">
     <Header activeNav={activeNav} />
     <slot />
     <Footer />

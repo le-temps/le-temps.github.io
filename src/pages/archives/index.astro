@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getArchiveByYear } from '../../utils/content';
+import { getReadingTime } from '../../utils/readingTime';
+
+const archive = await getArchiveByYear();
+---
+
+<BaseLayout title="Archives | Joy (@le-temps)" activeNav="archives">
+  <Breadcrumbs />
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
+    <h1 class="text-2xl font-semibold sm:text-3xl text-skin-base">Archives</h1>
+    <p class="mt-2 mb-6 italic text-sm opacity-80">All the articles posted over the years.</p>
+
+    <div class="space-y-8">
+      {archive.map(({ year, posts }) => (
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <h2 class="text-2xl font-bold text-skin-accent">{year}</h2>
+            <sup class="text-xs opacity-70">({posts.length})</sup>
+          </div>
+          <ul class="space-y-3">
+            {posts.map((post) => {
+              const readingTime = getReadingTime(post.body);
+              const dateObj = new Date(post.data.date);
+              const day = dateObj.getDate();
+              const month = dateObj.toLocaleDateString('en-US', { month: 'short' });
+              return (
+                <li class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-4">
+                  <span class="text-sm italic opacity-70 min-w-[5rem]">{`${day} ${month}`}</span>
+                  <a
+                    href={`/posts/${post.slug}`}
+                    class="text-base font-medium text-skin-accent hover:underline decoration-dashed"
+                  >
+                    {post.data.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </main>
+</BaseLayout>
