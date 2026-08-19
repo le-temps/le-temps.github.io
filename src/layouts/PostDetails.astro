@@ -7,11 +7,15 @@ import type { Post } from '../utils/content';
 
 export interface Props {
   post: Post;
+  headings?: { depth: number; slug: string; text: string }[];
 }
 
-const { post } = Astro.props;
+const { post, headings = [] } = Astro.props;
 const { title, author, description, date, tags } = post.data;
 const readingTime = getReadingTime(post.body);
+
+const editUrl = `https://github.com/le-temps/le-temps.github.io/edit/main/src/content/posts/${post.id}`;
+const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
 <BaseLayout
@@ -22,10 +26,10 @@ const readingTime = getReadingTime(post.body);
 >
   <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
     <button
-      class="focus-outline mt-8 mb-2 flex hover:opacity-75"
+      class="focus-outline mt-8 mb-2 flex items-center gap-1 hover:opacity-75 text-sm text-skin-base font-mono"
       onclick="history.back()"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
       </svg>
       <span>Go back</span>
@@ -33,14 +37,48 @@ const readingTime = getReadingTime(post.body);
   </div>
 
   <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
-    <h1 class="text-2xl font-semibold sm:text-3xl text-skin-accent">{title}</h1>
-    <Datetime
-      datetime={date}
-      size="lg"
-      className="my-2"
-      readingTime={readingTime}
-    />
-    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
+    <h1 class="text-2xl font-bold sm:text-3xl text-skin-accent font-mono my-2 tracking-tight">
+      {title}
+    </h1>
+
+    <div class="flex flex-wrap items-center gap-2 my-2 text-sm opacity-80 text-skin-base font-mono">
+      <Datetime datetime={date} readingTime={readingTime} />
+      <span aria-hidden="true">|</span>
+      <a
+        href={editUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1 hover:text-skin-accent underline decoration-dashed"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+        <span>Edit page</span>
+      </a>
+    </div>
+
+    <!-- Table of Contents Collapsible Component matching screenshot -->
+    {filteredHeadings.length > 0 && (
+      <details class="my-6 border border-skin-line rounded p-4 bg-skin-card bg-opacity-30">
+        <summary class="cursor-pointer font-bold text-base text-skin-base select-none font-mono">
+          Table of contents
+        </summary>
+        <ul class="mt-3 space-y-1.5 pl-4 text-sm font-mono">
+          {filteredHeadings.map((h) => (
+            <li style={{ paddingLeft: `${(h.depth - 2) * 1}rem` }}>
+              <a
+                href={`#${h.slug}`}
+                class="hover:text-skin-accent underline decoration-dashed"
+              >
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    )}
+
+    <article id="article" role="article" class="prose mx-auto mt-6 max-w-3xl">
       <slot />
     </article>
 
@@ -48,10 +86,10 @@ const readingTime = getReadingTime(post.body);
       {tags.map((tag) => <Tag tag={tag} />)}
     </ul>
 
-    <div class="flex flex-col-reverse justify-between gap-6 sm:flex-row-reverse sm:items-end">
+    <div class="flex flex-col-reverse justify-between gap-6 sm:flex-row-reverse sm:items-end border-t border-skin-line pt-6">
       <button
         id="back-to-top"
-        class="focus-outline whitespace-nowrap py-1 hover:opacity-75 flex items-center gap-1 text-sm text-skin-base"
+        class="focus-outline whitespace-nowrap py-1 hover:opacity-75 flex items-center gap-1 text-sm text-skin-base font-mono"
         onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90 stroke-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,7 +98,7 @@ const readingTime = getReadingTime(post.body);
         <span>Back to Top</span>
       </button>
 
-      <div class="flex items-center gap-2 text-sm opacity-80">
+      <div class="flex items-center gap-2 text-sm opacity-80 font-mono">
         <span>Share:</span>
         <a
           href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.href)}`}
