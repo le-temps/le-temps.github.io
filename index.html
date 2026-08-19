@@ -237,16 +237,67 @@
       </div>
     </div>
 
-    <!-- GitHub 贡献热力图 (Contribution Heatmap) -->
-    <div class="p-6 rounded-2xl bg-slate-800/60 border border-slate-800">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-sm font-bold text-slate-300 flex items-center gap-2">
-          <i class="fa-solid fa-chart-simple text-blue-400"></i> GitHub 贡献热力图 (Contribution Graph)
-        </h3>
-        <a href="https://github.com/le-temps" target="_blank" class="text-xs text-blue-400 hover:underline">查看完整 Profile →</a>
+    <!-- GitHub 贡献贪吃蛇与开源热力图 Section (Platane/snk 同款动态吞噬引擎) -->
+    <div class="p-6 md:p-8 rounded-3xl bg-slate-800/60 border border-slate-800 shadow-2xl relative overflow-hidden backdrop-blur-sm">
+      <!-- 顶部控制台与主题切换器 -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-700/50">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500/20 to-blue-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl">
+            <i class="fa-solid fa-gamepad"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              GitHub 贡献贪吃蛇
+              <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                LIVE EATING
+              </span>
+            </h3>
+            <p class="text-xs text-slate-400 mt-0.5">基于 <a href="https://github.com/Platane/snk" target="_blank" class="text-blue-400 hover:underline">Platane/snk</a> 引擎与 GitHub Actions 自动生成的动态贡献吞噬图</p>
+          </div>
+        </div>
+
+        <!-- 交互式主题切换按钮组 -->
+        <div class="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/80 border border-slate-700/50 text-xs">
+          <button id="theme-ocean" onclick="switchSnakeTheme('ocean')" class="px-3 py-1.5 rounded-lg font-medium transition-all bg-brand text-white shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-water text-[10px]"></i> 极光蓝
+          </button>
+          <button id="theme-dark" onclick="switchSnakeTheme('dark')" class="px-3 py-1.5 rounded-lg font-medium transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
+            <i class="fa-solid fa-moon text-[10px]"></i> 深邃黑
+          </button>
+          <button id="theme-classic" onclick="switchSnakeTheme('classic')" class="px-3 py-1.5 rounded-lg font-medium transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
+            <i class="fa-solid fa-sun text-[10px]"></i> 经典绿
+          </button>
+          <button id="theme-static" onclick="switchSnakeTheme('static')" class="px-3 py-1.5 rounded-lg font-medium transition-all text-slate-400 hover:text-white flex items-center gap-1.5">
+            <i class="fa-solid fa-chart-simple text-[10px]"></i> 静态热力
+          </button>
+        </div>
       </div>
-      <div class="overflow-x-auto py-2 flex justify-center">
-        <img src="https://ghchart.rshah.org/3b82f6/le-temps" alt="le-temps GitHub chart" class="max-w-full rounded" onerror="this.style.display='none'" />
+
+      <!-- 贪吃蛇动态画布容器 -->
+      <div class="relative min-h-[160px] flex items-center justify-center p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 overflow-x-auto">
+        <!-- 动态加载动图 -->
+        <img id="snake-display" 
+             src="https://raw.githubusercontent.com/le-temps/le-temps.github.io/output/github-contribution-grid-snake-ocean.svg" 
+             alt="le-temps GitHub Contribution Snake Animation" 
+             class="max-w-full rounded transition-all duration-300 transform hover:scale-[1.01]"
+             onerror="handleSnakeFallback(this)" />
+      </div>
+
+      <!-- 底部辅助信息与重放按钮 -->
+      <div class="flex items-center justify-between mt-4 text-xs text-slate-400">
+        <div class="flex items-center gap-2">
+          <i class="fa-regular fa-clock"></i>
+          <span>GitHub Actions 每 24 小时自动更新</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <button onclick="reloadSnake()" class="hover:text-blue-400 transition-colors flex items-center gap-1">
+            <i class="fa-solid fa-rotate text-[11px]"></i> 重放动画
+          </button>
+          <a href="https://github.com/le-temps" target="_blank" class="text-blue-400 hover:underline flex items-center gap-1">
+            GitHub 个人主页 <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -270,8 +321,50 @@
     </p>
   </footer>
 
-  <!-- 客户端原生 GitHub API 动态更新脚本（零依赖，秒加载） -->
+  <!-- 客户端动态更新与贪吃蛇交互控制脚本 -->
   <script>
+    const SNAKE_THEMES = {
+      ocean: 'https://raw.githubusercontent.com/le-temps/le-temps.github.io/output/github-contribution-grid-snake-ocean.svg',
+      dark: 'https://raw.githubusercontent.com/le-temps/le-temps.github.io/output/github-contribution-grid-snake-dark.svg',
+      classic: 'https://raw.githubusercontent.com/le-temps/le-temps.github.io/output/github-contribution-grid-snake.svg',
+      static: 'https://ghchart.rshah.org/3b82f6/le-temps'
+    };
+
+    let currentTheme = 'ocean';
+
+    function switchSnakeTheme(theme) {
+      currentTheme = theme;
+      const img = document.getElementById('snake-display');
+      if (img && SNAKE_THEMES[theme]) {
+        // Add timestamp to trigger re-animation or bypass caching
+        const baseSrc = SNAKE_THEMES[theme];
+        img.src = `${baseSrc}?t=${Date.now()}`;
+      }
+
+      // Update button styling active states
+      ['ocean', 'dark', 'classic', 'static'].forEach(t => {
+        const btn = document.getElementById(`theme-${t}`);
+        if (btn) {
+          if (t === theme) {
+            btn.className = 'px-3 py-1.5 rounded-lg font-medium transition-all bg-brand text-white shadow-sm flex items-center gap-1.5';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-lg font-medium transition-all text-slate-400 hover:text-white flex items-center gap-1.5';
+          }
+        }
+      });
+    }
+
+    function reloadSnake() {
+      switchSnakeTheme(currentTheme);
+    }
+
+    function handleSnakeFallback(img) {
+      console.warn('Snake animation loading fallback to static chart');
+      if (img.src !== SNAKE_THEMES.static) {
+        img.src = SNAKE_THEMES.static;
+      }
+    }
+
     async function loadGitHubData() {
       try {
         const res = await fetch('https://api.github.com/users/le-temps');
@@ -290,6 +383,5 @@
     }
     loadGitHubData();
   </script>
-
 </body>
 </html>
