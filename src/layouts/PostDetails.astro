@@ -1,0 +1,76 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Datetime from '../components/Datetime.astro';
+import Tag from '../components/Tag.astro';
+import { getReadingTime } from '../utils/readingTime';
+import type { Post } from '../utils/content';
+
+export interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { title, author, description, date, tags } = post.data;
+const readingTime = getReadingTime(post.body);
+---
+
+<BaseLayout
+  title={`${title} | Joy (@le-temps)`}
+  author={author}
+  description={description}
+  activeNav="posts"
+>
+  <div class="mx-auto flex w-full max-w-3xl justify-start px-2">
+    <button
+      class="focus-outline mt-8 mb-2 flex hover:opacity-75"
+      onclick="history.back()"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      <span>Go back</span>
+    </button>
+  </div>
+
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
+    <h1 class="text-2xl font-semibold sm:text-3xl text-skin-accent">{title}</h1>
+    <Datetime
+      datetime={date}
+      size="lg"
+      className="my-2"
+      readingTime={readingTime}
+    />
+    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
+      <slot />
+    </article>
+
+    <ul class="my-8">
+      {tags.map((tag) => <Tag tag={tag} />)}
+    </ul>
+
+    <div class="flex flex-col-reverse justify-between gap-6 sm:flex-row-reverse sm:items-end">
+      <button
+        id="back-to-top"
+        class="focus-outline whitespace-nowrap py-1 hover:opacity-75 flex items-center gap-1 text-sm text-skin-base"
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="rotate-90 stroke-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span>Back to Top</span>
+      </button>
+
+      <div class="flex items-center gap-2 text-sm opacity-80">
+        <span>Share:</span>
+        <a
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.href)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-skin-accent underline decoration-dashed"
+        >
+          Twitter
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

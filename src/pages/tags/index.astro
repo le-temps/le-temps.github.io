@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Tag from '../../components/Tag.astro';
+import { getTagsWithCount } from '../../utils/content';
+
+const tags = await getTagsWithCount();
+---
+
+<BaseLayout title="Tags | Joy (@le-temps)" activeNav="tags">
+  <Breadcrumbs />
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
+    <h1 class="text-2xl font-semibold sm:text-3xl text-skin-accent">Tags</h1>
+    <p class="mt-2 mb-6 italic text-sm opacity-80">All the tags used in posts.</p>
+    <ul class="my-4">
+      {tags.map((t) => <Tag tag={t.tag} size="lg" />)}
+    </ul>
+  </main>
+</BaseLayout>

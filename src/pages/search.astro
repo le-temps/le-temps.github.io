@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Search from '../components/Search';
+import { getPublishedPosts } from '../utils/content';
+
+const posts = await getPublishedPosts();
+const searchList = posts.map((post) => ({
+  slug: post.slug,
+  title: post.data.title,
+  description: post.data.description,
+  date: post.data.date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }),
+  tags: post.data.tags,
+}));
+---
+
+<BaseLayout title="Search | Joy (@le-temps)" activeNav="search">
+  <Breadcrumbs />
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
+    <h1 class="text-2xl font-semibold sm:text-3xl text-skin-accent">Search</h1>
+    <p class="mt-2 mb-6 italic text-sm opacity-80">Search any article by title, description or tag...</p>
+    <Search client:load searchList={searchList} />
+  </main>
+</BaseLayout>

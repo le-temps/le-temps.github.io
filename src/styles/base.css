@@ -1,0 +1,58 @@
+:root {
+  --color-fill: 251, 251, 251;
+  --color-text-base: 40, 39, 40;
+  --color-accent: 0, 108, 172;
+  --color-card: 230, 230, 230;
+  --color-card-muted: 205, 205, 205;
+  --color-border: 220, 220, 220;
+}
+
+html.dark {
+  --color-fill: 24, 24, 27;
+  --color-text-base: 228, 228, 231;
+  --color-accent: 34, 211, 238;
+  --color-card: 39, 39, 42;
+  --color-card-muted: 63, 63, 70;
+  --color-border: 63, 63, 70;
+}
+
+@layer base {
+  body {
+    @apply min-h-screen bg-skin-fill font-mono text-skin-base selection:bg-skin-accent selection:bg-opacity-70 selection:text-skin-fill;
+  }
+  section,
+  footer {
+    @apply mx-auto max-w-3xl px-4;
+  }
+  a {
+    @apply outline-2 outline-offset-1 outline-skin-fill focus-visible:no-underline focus-visible:outline-dashed;
+  }
+  svg {
+    @apply inline-block h-6 w-6 fill-skin-base group-hover:fill-skin-accent;
+  }
+  svg.icon-tabler {
+    @apply inline-block h-6 w-6 scale-125 fill-transparent stroke-current stroke-2 opacity-90 group-hover:fill-transparent sm:scale-110;
+  }
+  .prose {
+    @apply prose-headings:!mb-3 prose-headings:!text-skin-base 
+           prose-h3:italic prose-p:!text-skin-base 
+           prose-a:!text-skin-accent prose-a:underline-offset-4
+           prose-blockquote:!border-l-skin-accent
+           prose-blockquote:border-opacity-50
+           prose-blockquote:opacity-80
+           prose-figcaption:!text-skin-base
+           prose-figcaption:opacity-70
+           prose-strong:!text-skin-base
+           prose-code:rounded prose-code:bg-skin-card 
+           prose-code:bg-opacity-75 prose-code:p-1 prose-code:!text-skin-base 
+           prose-code:before:!content-[''] prose-code:after:!content-['']
+           prose-pre:!border prose-pre:!border-skin-line 
+           prose-pre:!bg-skin-card prose-pre:!text-skin-base
+           prose-ol:!text-skin-base 
+           prose-ul:overflow-x-clip prose-ul:!text-skin-base prose-li:my-0.5
+           prose-li:marker:!text-skin-accent
+           prose-table:text-skin-base
+           prose-th:border prose-th:border-skin-line
+           prose-td:border prose-td:border-skin-line;
+  }
+}

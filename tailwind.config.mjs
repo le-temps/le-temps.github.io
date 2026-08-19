@@ -1,71 +1,68 @@
 import typography from '@tailwindcss/typography';
 
+function withOpacity(variableName) {
+  return ({ opacityValue }) => {
+    if (opacityValue !== undefined) {
+      return `rgba(var(${variableName}), ${opacityValue})`;
+    }
+    return `rgb(var(${variableName}))`;
+  };
+}
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   darkMode: 'class',
   theme: {
-    extend: {
-      colors: {
-        brand: {
-          50: '#f0f7ff',
-          100: '#e0effe',
-          200: '#bae0fd',
-          300: '#7cc7fb',
-          400: '#38aaf7',
-          500: '#0e8fe7',
-          600: '#0272c5',
-          700: '#035ba0',
-          800: '#074e83',
-          900: '#0b416d',
-          950: '#072a49',
-        },
+    textColor: {
+      skin: {
+        base: withOpacity('--color-text-base'),
+        accent: withOpacity('--color-accent'),
+        inverted: withOpacity('--color-fill'),
       },
+    },
+    backgroundColor: {
+      skin: {
+        fill: withOpacity('--color-fill'),
+        accent: withOpacity('--color-accent'),
+        inverted: withOpacity('--color-text-base'),
+        card: withOpacity('--color-card'),
+        'card-muted': withOpacity('--color-card-muted'),
+      },
+    },
+    outlineColor: {
+      skin: {
+        fill: withOpacity('--color-accent'),
+      },
+    },
+    borderColor: {
+      skin: {
+        line: withOpacity('--color-border'),
+        fill: withOpacity('--color-text-base'),
+        accent: withOpacity('--color-accent'),
+      },
+    },
+    fill: {
+      skin: {
+        base: withOpacity('--color-text-base'),
+        accent: withOpacity('--color-accent'),
+      },
+      transparent: 'transparent',
+    },
+    stroke: {
+      skin: {
+        accent: withOpacity('--color-accent'),
+      },
+    },
+    extend: {
       fontFamily: {
-        sans: [
-          'Inter',
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
-          'Helvetica Neue',
-          'sans-serif',
-        ],
-        mono: [
-          'JetBrains Mono',
-          'Fira Code',
-          'ui-monospace',
-          'SFMono-Regular',
-          'Menlo',
-          'Monaco',
-          'Consolas',
-          'monospace',
-        ],
+        mono: ['IBM Plex Mono', 'JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       typography: {
         DEFAULT: {
           css: {
             maxWidth: '100%',
-            color: 'inherit',
-            a: {
-              color: '#38aaf7',
-              textDecoration: 'none',
-              '&:hover': {
-                textDecoration: 'underline',
-              },
-            },
-            code: {
-              color: 'inherit',
-              padding: '0.2em 0.4em',
-              borderRadius: '0.375rem',
-              fontWeight: '500',
-            },
-            'code::before': {
-              content: '""',
-            },
-            'code::after': {
-              content: '""',
-            },
           },
         },
       },

@@ -1,0 +1,39 @@
+---
+// Remove current url path and remove trailing slash if exists
+const currentUrlPath = Astro.url.pathname.replace(/\/+$/, '');
+
+// Get url array from path
+// e.g. /posts/my-post -> ['posts', 'my-post']
+const breadcrumbList = currentUrlPath.split('/').slice(1);
+
+// if breadcrumb is Home > Posts > 1 <etc>
+// replace 1 with Page 1
+if (breadcrumbList[0] === 'posts' && !isNaN(Number(breadcrumbList[1]))) {
+  breadcrumbList.splice(0, 2, `Posts (page ${breadcrumbList[1] || 1})`);
+}
+---
+
+<nav class="mx-auto mt-8 mb-4 w-full max-w-3xl px-4" aria-label="breadcrumb">
+  <ul class="flex items-center space-x-2 text-sm opacity-80">
+    <li>
+      <a href="/" class="hover:text-skin-accent">Home</a>
+      <span aria-hidden="true">&#62;</span>
+    </li>
+    {breadcrumbList.map((breadcrumb, index) =>
+      index + 1 === breadcrumbList.length ? (
+        <li>
+          <span class="capitalize active text-skin-base opacity-70" aria-current="page">
+            {decodeURIComponent(breadcrumb)}
+          </span>
+        </li>
+      ) : (
+        <li>
+          <a href={`/${breadcrumb}/`} class="capitalize hover:text-skin-accent">
+            {decodeURIComponent(breadcrumb)}
+          </a>
+          <span aria-hidden="true">&#62;</span>
+        </li>
+      )
+    )}
+  </ul>
+</nav>

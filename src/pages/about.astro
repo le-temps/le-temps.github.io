@@ -1,75 +1,42 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Socials from '../components/Socials.astro';
 ---
 
-<BaseLayout
-  title="关于我 · About | Joy (@le-temps)"
-  description="中国科学技术大学 (USTC) 大模型与 AI Agent 研究者，专注于自主智能体架构、RAG 与开源工程实践。"
->
-  <div class="py-12 max-w-3xl mx-auto space-y-12">
-    <!-- Header -->
-    <div class="space-y-4">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-950/60 border border-brand-200/60 dark:border-brand-800/50 text-xs font-semibold text-brand-600 dark:text-brand-400">
-        🎓 USTC · AI Agent & LLM Researcher
-      </div>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-        你好，我是 Joy (@le-temps) 👋
-      </h1>
-      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-        中国科学技术大学 (USTC) 研究生，主要研究方向为<strong>大语言模型 (LLM)</strong>、<strong>自主智能体架构 (AI Agents)</strong> 与 <strong>知识库检索增强 (RAG)</strong>。
+<BaseLayout title="About | Joy (@le-temps)" activeNav="about">
+  <Breadcrumbs />
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
+    <h1 class="text-2xl font-semibold sm:text-3xl text-skin-accent">About</h1>
+    
+    <article id="article" role="article" class="prose mx-auto mt-8 max-w-3xl">
+      <p>
+        Hi, I'm <strong>Joy (@le-temps)</strong>, a graduate researcher at <a href="https://www.ustc.edu.cn/" target="_blank" rel="noopener noreferrer">University of Science and Technology of China (USTC)</a>.
       </p>
-    </div>
 
-    <!-- Bio Sections -->
-    <div class="space-y-8 text-base text-slate-700 dark:text-slate-300 leading-relaxed border-t border-slate-200 dark:border-slate-800 pt-8">
-      <div class="space-y-3">
-        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
-          🔬 研究方向与兴趣
-        </h2>
-        <ul class="list-disc list-inside space-y-2 text-slate-600 dark:text-slate-400">
-          <li><strong>Autonomous Agent Harness & Memory</strong>：多智能体协作、长期核心记忆自进化（MemGPT）、复杂任务死循环防御。</li>
-          <li><strong>LLM Inference & Compaction</strong>：长上下文注意力度量、KV Cache 压缩、轻量化模型蒸馏。</li>
-          <li><strong>Open Source Engineering</strong>：打造易用、安全、高扩展性的开源工具链与中间件。</li>
-        </ul>
-      </div>
+      <p>
+        My core research focuses on <strong>Large Language Models (LLMs)</strong>, <strong>Autonomous AI Agent Harness & Memory</strong>, and scalable open-source developer tooling.
+      </p>
 
-      <div class="space-y-3">
-        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
-          🛠️ 技术栈与工具
-        </h2>
-        <div class="flex flex-wrap gap-2 pt-2">
-          {['Python', 'PyTorch', 'Transformers', 'TypeScript', 'Node.js', 'Go', 'Docker', 'Linux', 'LaTeX', 'DeepSeek Harness', 'Cordis'].map((tech) => (
-            <span class="px-3 py-1 rounded-xl text-xs font-mono font-medium bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300">
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
+      <h2>🔬 Research Focus</h2>
+      <ul>
+        <li><strong>Autonomous Agent Harness & Guardrails:</strong> Runtime lifecycle interceptors, infinite loop prevention, and tool failure self-healing mechanisms (e.g. DeepSeek Harness ecosystem).</li>
+        <li><strong>Long-Term Agent Memory:</strong> Self-evolving core memory architectures inspired by MemGPT, cross-session memory consolidation, and active reflection.</li>
+        <li><strong>Context & KV Cache Optimization:</strong> Mathematical analysis of attention entropy, sliding window compaction, and lossless history summarization.</li>
+      </ul>
 
-      <div class="space-y-3">
-        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
-          📬 联系与交流
-        </h2>
-        <p class="text-slate-600 dark:text-slate-400">
-          欢迎学术探讨、算法合作或开源生态交流：
-        </p>
-        <div class="flex flex-wrap gap-3 pt-2">
-          <a
-            href="https://github.com/le-temps"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-xs transition-all hover:opacity-90"
-          >
-            GitHub (@le-temps)
-          </a>
-          <a
-            href="mailto:contact@le-temps.dev"
-            class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-all hover:bg-slate-200 dark:hover:bg-slate-700"
-          >
-            发送邮件 (Email)
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
+      <h2>🚀 Open Source Projects</h2>
+      <ul>
+        <li><a href="https://github.com/le-temps/dsh-plugins-hub" target="_blank" rel="noopener noreferrer"><strong>dsh-plugins-hub:</strong></a> Production-ready plugin ecosystem for DeepSeek Harness (Core Memory, Token Compactor, Code Guard).</li>
+        <li><a href="https://github.com/le-temps/ds2api" target="_blank" rel="noopener noreferrer"><strong>ds2api:</strong></a> High-performance DeepSeek API gateway compatible with standard OpenAI client protocols.</li>
+        <li><a href="https://github.com/le-temps/academic-research-skills" target="_blank" rel="noopener noreferrer"><strong>academic-research-skills:</strong></a> Curated toolkits, best practices, and workflows for academic AI researchers.</li>
+      </ul>
+
+      <h2>📬 Get in Touch</h2>
+      <p>
+        Feel free to connect for academic collaborations, open-source ideas, or engineering discussions:
+      </p>
+      <Socials />
+    </article>
+  </main>
 </BaseLayout>

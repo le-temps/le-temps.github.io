@@ -1,56 +1,71 @@
 ---
 import ThemeToggle from './ThemeToggle';
-import SearchModal from './SearchModal';
-import MobileNav from './MobileNav';
-import { getPublishedPosts } from '../utils/content';
 
-const posts = await getPublishedPosts();
-const searchItems = posts.map((p) => ({
-  slug: p.slug,
-  title: p.data.title,
-  description: p.data.description,
-  category: p.data.category,
-  tags: p.data.tags,
-  date: p.data.date.toISOString().split('T')[0],
-}));
+export interface Props {
+  activeNav?: 'posts' | 'tags' | 'about' | 'search';
+}
 
-const currentPath = Astro.url.pathname;
+const { activeNav } = Astro.props;
 ---
 
-<header class="sticky top-0 z-40 w-full bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-    <!-- Logo / Brand -->
-    <a href="/" class="flex items-center gap-2.5 text-slate-900 dark:text-white font-bold text-lg tracking-tight group">
-      <span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-500 to-indigo-500 flex items-center justify-center text-white text-xs font-mono font-bold shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
-        JOY
-      </span>
-      <span class="font-sans font-semibold">le-temps<span class="text-brand-500">.dev</span></span>
+<header class="mx-auto max-w-3xl px-4 pt-4 sm:pt-8">
+  <div class="flex items-center justify-between">
+    <a
+      href="/"
+      class="text-xl font-semibold sm:text-2xl font-mono tracking-tight hover:text-skin-accent transition-colors py-1"
+    >
+      Joy (@le-temps)
     </a>
 
-    <!-- Desktop Navigation Links -->
-    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
-      <a href="/" class={`hover:text-brand-500 transition-colors ${currentPath === '/' ? 'text-brand-500 font-semibold' : ''}`}>
-        Home
-      </a>
-      <a href="/blog" class={`hover:text-brand-500 transition-colors ${currentPath.startsWith('/blog') ? 'text-brand-500 font-semibold' : ''}`}>
-        Blog
-      </a>
-      <a href="/archive" class={`hover:text-brand-500 transition-colors ${currentPath.startsWith('/archive') ? 'text-brand-500 font-semibold' : ''}`}>
-        Archive
-      </a>
-      <a href="/#projects" class="hover:text-brand-500 transition-colors">
-        Projects
-      </a>
-      <a href="/about" class={`hover:text-brand-500 transition-colors ${currentPath.startsWith('/about') ? 'text-brand-500 font-semibold' : ''}`}>
-        About
-      </a>
+    <nav id="nav-menu" class="flex items-center space-x-2 sm:space-x-4">
+      <ul id="menu-items" class="flex items-center space-x-2 sm:space-x-4 text-sm sm:text-base">
+        <li>
+          <a
+            href="/posts"
+            class={`hover:text-skin-accent ${activeNav === 'posts' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-4' : ''}`}
+          >
+            Posts
+          </a>
+        </li>
+        <li>
+          <a
+            href="/tags"
+            class={`hover:text-skin-accent ${activeNav === 'tags' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-4' : ''}`}
+          >
+            Tags
+          </a>
+        </li>
+        <li>
+          <a
+            href="/about"
+            class={`hover:text-skin-accent ${activeNav === 'about' ? 'text-skin-accent underline decoration-wavy decoration-2 underline-offset-4' : ''}`}
+          >
+            About
+          </a>
+        </li>
+        <li>
+          <a
+            href="/search"
+            class={`p-2 sm:p-1 hover:text-skin-accent focus-outline ${activeNav === 'search' ? 'text-skin-accent' : ''}`}
+            aria-label="search"
+            title="Search"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 stroke-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </a>
+        </li>
+        <li>
+          <ThemeToggle client:load />
+        </li>
+      </ul>
     </nav>
-
-    <!-- Right Controls: Search, Theme Toggle & Mobile Nav -->
-    <div class="flex items-center gap-2 sm:gap-3">
-      <SearchModal client:load items={searchItems} />
-      <ThemeToggle client:load />
-      <MobileNav client:load />
-    </div>
   </div>
+  <hr class="border-skin-line border-dashed my-4 sm:my-6" />
 </header>

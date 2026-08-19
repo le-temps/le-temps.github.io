@@ -1,0 +1,35 @@
+---
+import Datetime from './Datetime.astro';
+import { getReadingTime } from '../utils/readingTime';
+import type { Post } from '../utils/content';
+
+interface Props {
+  href?: string;
+  post: Post;
+  secHeading?: boolean;
+}
+
+const { post, secHeading = true } = Astro.props;
+const { title, date, description } = post.data;
+const readingTime = getReadingTime(post.body);
+const href = `/posts/${post.slug}`;
+---
+
+<li class="my-6">
+  <a
+    href={href}
+    class="inline-block text-lg font-medium text-skin-accent decoration-dashed underline-offset-4 focus-visible:no-underline focus-visible:underline-offset-0 hover:underline"
+  >
+    {secHeading ? (
+      <h2 class="text-lg font-medium decoration-dashed hover:underline">
+        {title}
+      </h2>
+    ) : (
+      <h3 class="text-lg font-medium decoration-dashed hover:underline">
+        {title}
+      </h3>
+    )}
+  </a>
+  <Datetime datetime={date} readingTime={readingTime} />
+  <p class="mt-1 text-skin-base opacity-90 text-sm leading-relaxed">{description}</p>
+</li>

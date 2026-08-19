@@ -1,0 +1,18 @@
+---
+interface Props {
+  tag: string;
+  size?: 'sm' | 'lg';
+}
+
+const { tag, size = 'sm' } = Astro.props;
+---
+
+<li class={`inline-block ${size === 'sm' ? 'my-1 underline-offset-4' : 'my-2 mx-1 underline-offset-8'}`}>
+  <a
+    href={`/tags/${tag}`}
+    class={`${size === 'sm' ? 'text-sm' : 'text-lg'} pr-2 group text-skin-base hover:text-skin-accent focus-visible:p-1`}
+  >
+    <span class="text-skin-accent">#</span>
+    <span>{tag}</span>
+  </a>
+</li>

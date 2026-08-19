@@ -1,0 +1,31 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Card from '../components/Card.astro';
+import type { Post } from '../utils/content';
+
+export interface Props {
+  posts: Post[];
+  pageTitle?: string;
+  pageDesc?: string;
+}
+
+const {
+  posts,
+  pageTitle = 'Posts',
+  pageDesc = 'All the articles I\'ve posted.',
+} = Astro.props;
+---
+
+<BaseLayout title={`${pageTitle} | Joy (@le-temps)`} activeNav="posts">
+  <Breadcrumbs />
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 pb-12">
+    <h1 class="text-2xl font-semibold sm:text-3xl text-skin-accent">{pageTitle}</h1>
+    <p class="mt-2 mb-6 italic text-sm opacity-80">{pageDesc}</p>
+    <ul>
+      {posts.map((post) => (
+        <Card post={post} />
+      ))}
+    </ul>
+  </main>
+</BaseLayout>
