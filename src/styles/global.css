@@ -27,9 +27,15 @@ html {
   overflow-y: scroll;
 }
 
+/* Selection Styling */
+::selection {
+  background-color: rgba(var(--color-accent), 0.7);
+  color: rgb(var(--color-fill));
+}
+
 @layer base {
   body {
-    @apply min-h-screen bg-skin-fill font-mono text-skin-base selection:bg-skin-accent selection:bg-opacity-70 selection:text-skin-fill;
+    @apply min-h-screen bg-skin-fill font-mono text-skin-base;
   }
   section,
   footer {
