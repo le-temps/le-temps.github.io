@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>le-temps | 个人作品集 & 主页</title>
+  <title>Joy (le-temps) | 个人主页 & 作品集</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome 图标库 -->
@@ -22,20 +22,21 @@
     }
   </script>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-brand selection:text-white">
+<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-brand selection:text-white min-h-screen">
 
   <!-- 顶部导航栏 -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-800">
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       <a href="#" class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-        <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand to-indigo-500 flex items-center justify-center text-white text-sm font-mono font-bold">LT</span>
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand to-indigo-500 flex items-center justify-center text-white text-sm font-mono font-bold">JOY</span>
         <span>le-temps.dev</span>
       </a>
       <div class="flex items-center gap-6 text-sm font-medium text-slate-300">
         <a href="#about" class="hover:text-brand transition-colors">关于</a>
-        <a href="#skills" class="hover:text-brand transition-colors">技能栈</a>
+        <a href="#skills" class="hover:text-brand transition-colors">研究与技能</a>
         <a href="#projects" class="hover:text-brand transition-colors">精选项目</a>
-        <a href="#contact" class="hover:text-brand transition-colors">联系我</a>
+        <a href="#stats" class="hover:text-brand transition-colors">开源数据</a>
+        <a href="#contact" class="hover:text-brand transition-colors">联系方式</a>
       </div>
     </div>
   </nav>
@@ -43,132 +44,210 @@
   <!-- Hero 个人介绍区域 -->
   <header id="about" class="pt-32 pb-20 px-6 max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
     <div class="flex-1 space-y-6 text-center md:text-left">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-semibold text-emerald-400">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        探索未知 · 热爱开源 · 持续构建
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs font-semibold text-blue-400">
+        <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+        🎓 USTC (中国科学技术大学) · LLM & AI Agent Researcher
       </div>
       <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white">
-        你好，我是 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">le-temps</span> 👋
+        你好，我是 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Joy</span>
+        <span class="text-2xl md:text-3xl text-slate-400 font-normal">(@le-temps)</span> 👋
       </h1>
-      <p class="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed">
-        欢迎来到我的个人主页与技术空间！我热衷于编写优雅高效的代码，探索现代工程架构与前沿技术，记录开发与学习过程中的思考。
+      <p class="text-lg md:text-xl text-slate-300 max-w-2xl leading-relaxed">
+        专注于 <span class="text-blue-400 font-medium">大语言模型 (LLM)</span>、<span class="text-indigo-400 font-medium">AI Agent 自主智能体</span> 与 <span class="text-emerald-400 font-medium">RAG 知识库检索增强</span> 技术，热衷于学术探索与开源工程落地。
       </p>
       <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2">
         <a href="#projects" class="px-6 py-3 rounded-xl bg-brand hover:bg-brandDark text-white font-semibold transition-all shadow-lg shadow-brand/25 flex items-center gap-2">
-          <i class="fa-solid fa-code"></i> 查看项目
+          <i class="fa-solid fa-code-branch"></i> 探索项目作品
         </a>
         <a href="https://github.com/le-temps" target="_blank" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold transition-all flex items-center gap-2">
-          <i class="fa-brands fa-github text-lg"></i> GitHub Profile
+          <i class="fa-brands fa-github text-lg"></i> GitHub 主页
         </a>
       </div>
     </div>
     <div class="relative group">
       <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full blur opacity-70 group-hover:opacity-100 transition duration-500"></div>
-      <img src="https://github.com/le-temps.png" alt="le-temps" class="relative w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-slate-800 shadow-2xl" onerror="this.src='https://avatars.githubusercontent.com/u/9919?v=4'" />
+      <img src="https://avatars.githubusercontent.com/u/91265258?v=4" alt="Joy" class="relative w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-slate-800 shadow-2xl" />
     </div>
   </header>
 
-  <!-- 技能栈 Section -->
+  <!-- 技能栈 & 研究领域 Section -->
   <section id="skills" class="py-16 px-6 max-w-6xl mx-auto border-t border-slate-800">
     <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-white mb-2">技术栈 & 掌握领域</h2>
-      <p class="text-slate-400">持续积累与实践的技术工具箱</p>
+      <h2 class="text-3xl font-bold text-white mb-2">研究领域 & 技术栈</h2>
+      <p class="text-slate-400">大模型算法探索与全栈工程落地能力</p>
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
       <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-800 hover:border-slate-700 transition-all">
-        <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-code"></i></div>
-        <h3 class="font-bold text-white mb-2">前端与界面</h3>
-        <p class="text-sm text-slate-400">HTML5, CSS3, JavaScript, TypeScript, React, Vue, Tailwind CSS</p>
+        <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-brain"></i></div>
+        <h3 class="font-bold text-white mb-2">LLM & Agent 架构</h3>
+        <p class="text-sm text-slate-400">Agent Framework, RAG, Multi-Agent Collaboration, Prompt Engineering</p>
       </div>
       <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-800 hover:border-slate-700 transition-all">
-        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-server"></i></div>
-        <h3 class="font-bold text-white mb-2">后端与服务</h3>
-        <p class="text-sm text-slate-400">Node.js, Python, Go, Java, RESTful APIs, 微服务</p>
+        <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-microchip"></i></div>
+        <h3 class="font-bold text-white mb-2">深度学习 & 模型训练</h3>
+        <p class="text-sm text-slate-400">PyTorch, LoRA / PEFT 微调, Transformer, Vision & Language Models</p>
       </div>
       <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-800 hover:border-slate-700 transition-all">
-        <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-database"></i></div>
-        <h3 class="font-bold text-white mb-2">数据库与存储</h3>
-        <p class="text-sm text-slate-400">MySQL, PostgreSQL, Redis, MongoDB, 缓存与持久化</p>
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-code"></i></div>
+        <h3 class="font-bold text-white mb-2">编程语言 & 系统</h3>
+        <p class="text-sm text-slate-400">Python, C/C++, Java, TypeScript, Linux, 高性能计算</p>
       </div>
       <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-800 hover:border-slate-700 transition-all">
-        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-cloud"></i></div>
-        <h3 class="font-bold text-white mb-2">DevOps & 工程化</h3>
-        <p class="text-sm text-slate-400">Git, GitHub Actions, Docker, Linux, CI/CD 自动化</p>
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-gears"></i></div>
+        <h3 class="font-bold text-white mb-2">工程化 & 工具链</h3>
+        <p class="text-sm text-slate-400">Docker, Git, Vector Database (Chroma/FAISS), Fast API, CI/CD</p>
       </div>
     </div>
   </section>
 
-  <!-- 核心项目作品展示 Section -->
+  <!-- 精选项目作品展示 Section -->
   <section id="projects" class="py-16 px-6 max-w-6xl mx-auto border-t border-slate-800">
     <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-white mb-2">精选项目作品</h2>
-      <p class="text-slate-400">开源探索与工程实践展示</p>
+      <h2 class="text-3xl font-bold text-white mb-2">精选开源 & 科研项目</h2>
+      <p class="text-slate-400">持续沉淀与探索的算法与系统实践</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- 项目卡片 1 -->
+      <!-- 项目 1: all-in-rag -->
       <div class="rounded-2xl bg-slate-800/50 border border-slate-800 overflow-hidden flex flex-col hover:border-slate-700 transition-all group">
-        <div class="h-48 bg-gradient-to-br from-blue-900/40 to-slate-800 flex items-center justify-center border-b border-slate-800 text-slate-500 group-hover:scale-[1.02] transition-transform duration-300">
-          <i class="fa-solid fa-globe text-5xl text-brand/60"></i>
+        <div class="h-44 bg-gradient-to-br from-blue-900/40 to-slate-800 flex items-center justify-center border-b border-slate-800 text-slate-500 group-hover:scale-[1.02] transition-transform duration-300">
+          <i class="fa-solid fa-database text-5xl text-blue-400/80"></i>
         </div>
         <div class="p-6 flex-1 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <h3 class="text-xl font-bold text-white">le-temps.github.io</h3>
+              <h3 class="text-xl font-bold text-white">All-in-RAG</h3>
               <div class="flex gap-3 text-slate-400">
-                <a href="https://github.com/le-temps/le-temps.github.io" target="_blank" class="hover:text-white" title="GitHub 仓库"><i class="fa-brands fa-github text-lg"></i></a>
-                <a href="https://le-temps.github.io" target="_blank" class="hover:text-white" title="线上预览"><i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
+                <a href="https://github.com/le-temps/all-in-rag" target="_blank" class="hover:text-white" title="GitHub 仓库"><i class="fa-brands fa-github text-lg"></i></a>
               </div>
             </div>
             <p class="text-slate-400 text-sm mb-4 leading-relaxed">
-              个人独立作品集与主页展示站点，采用响应式布局与现代化暗黑主题设计，基于 GitHub Pages 全球 CDN 高速托管。
+              针对大模型知识检索增强（RAG）体系的全流程实现与前沿算法整合，支持多模态文档解析、切分策略、向量重排与长上下文增强。
             </p>
           </div>
           <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800/60">
-            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-blue-400 font-mono">HTML5</span>
-            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-blue-400 font-mono">Tailwind CSS</span>
-            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-blue-400 font-mono">GitHub Pages</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-blue-400 font-mono">Python</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-blue-400 font-mono">RAG</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-blue-400 font-mono">LLM</span>
           </div>
         </div>
       </div>
 
-      <!-- 项目卡片 2 -->
+      <!-- 项目 2: AgentLaboratory -->
       <div class="rounded-2xl bg-slate-800/50 border border-slate-800 overflow-hidden flex flex-col hover:border-slate-700 transition-all group">
-        <div class="h-48 bg-gradient-to-br from-indigo-900/40 to-slate-800 flex items-center justify-center border-b border-slate-800 text-slate-500 group-hover:scale-[1.02] transition-transform duration-300">
-          <i class="fa-solid fa-cubes text-5xl text-indigo-400/60"></i>
+        <div class="h-44 bg-gradient-to-br from-purple-900/40 to-slate-800 flex items-center justify-center border-b border-slate-800 text-slate-500 group-hover:scale-[1.02] transition-transform duration-300">
+          <i class="fa-solid fa-robot text-5xl text-purple-400/80"></i>
         </div>
         <div class="p-6 flex-1 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <h3 class="text-xl font-bold text-white">Full-Stack Application Starter</h3>
+              <h3 class="text-xl font-bold text-white">AgentLaboratory</h3>
               <div class="flex gap-3 text-slate-400">
-                <a href="https://github.com/le-temps" target="_blank" class="hover:text-white" title="GitHub 仓库"><i class="fa-brands fa-github text-lg"></i></a>
-                <a href="https://github.com/le-temps" target="_blank" class="hover:text-white" title="线上预览"><i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></a>
+                <a href="https://github.com/le-temps/AgentLaboratory" target="_blank" class="hover:text-white" title="GitHub 仓库"><i class="fa-brands fa-github text-lg"></i></a>
               </div>
             </div>
             <p class="text-slate-400 text-sm mb-4 leading-relaxed">
-              现代全栈工程化脚手架模板，集成认证鉴权、自动化测试、Docker 容器化部署以及统一 API 规范。
+              自主科研 Agent 协作框架实验平台，探索多智能体在文献调研、代码实现、实验分析与自动化论文撰写等全流程的自主协同。
             </p>
           </div>
           <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800/60">
-            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-indigo-400 font-mono">FullStack</span>
-            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-indigo-400 font-mono">TypeScript</span>
-            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-indigo-400 font-mono">Docker</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-purple-400 font-mono">Multi-Agent</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-purple-400 font-mono">Autonomous AI</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-purple-400 font-mono">Research</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 项目 3: CloudSwinTransformer -->
+      <div class="rounded-2xl bg-slate-800/50 border border-slate-800 overflow-hidden flex flex-col hover:border-slate-700 transition-all group">
+        <div class="h-44 bg-gradient-to-br from-emerald-900/40 to-slate-800 flex items-center justify-center border-b border-slate-800 text-slate-500 group-hover:scale-[1.02] transition-transform duration-300">
+          <i class="fa-solid fa-network-wired text-5xl text-emerald-400/80"></i>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-xl font-bold text-white">CloudSwinTransformer</h3>
+              <div class="flex gap-3 text-slate-400">
+                <a href="https://github.com/le-temps/CloudSwinTransformer" target="_blank" class="hover:text-white" title="GitHub 仓库"><i class="fa-brands fa-github text-lg"></i></a>
+              </div>
+            </div>
+            <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+              结合 Swin Transformer 架构的点云与多模态数据深度学习处理框架，提升大规模空间数据的特征提取与表征能力。
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800/60">
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-emerald-400 font-mono">PyTorch</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-emerald-400 font-mono">Transformer</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-emerald-400 font-mono">Computer Vision</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 项目 4: academic-research-skills -->
+      <div class="rounded-2xl bg-slate-800/50 border border-slate-800 overflow-hidden flex flex-col hover:border-slate-700 transition-all group">
+        <div class="h-44 bg-gradient-to-br from-amber-900/40 to-slate-800 flex items-center justify-center border-b border-slate-800 text-slate-500 group-hover:scale-[1.02] transition-transform duration-300">
+          <i class="fa-solid fa-graduation-cap text-5xl text-amber-400/80"></i>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="text-xl font-bold text-white">Academic Research & Toolkit</h3>
+              <div class="flex gap-3 text-slate-400">
+                <a href="https://github.com/le-temps/academic-research-skills" target="_blank" class="hover:text-white" title="GitHub 仓库"><i class="fa-brands fa-github text-lg"></i></a>
+              </div>
+            </div>
+            <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+              面向科研学者与工程师的高效工具箱与技能沉淀库，涵盖论文阅读、实验管理、写作排版与大模型辅助科研的最佳实践。
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-2 border-t border-slate-800/60">
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-amber-400 font-mono">Academic</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-amber-400 font-mono">Tools</span>
+            <span class="text-xs px-2.5 py-1 rounded-md bg-slate-800 text-amber-400 font-mono">Research</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- GitHub 活跃状态看板 -->
-  <section class="py-16 px-6 max-w-6xl mx-auto border-t border-slate-800">
-    <div class="text-center mb-8">
-      <h2 class="text-3xl font-bold text-white mb-2">GitHub 统计与动态</h2>
-      <p class="text-slate-400">实时同步 GitHub 开源数据与活跃状态</p>
+  <!-- GitHub 活跃状态 & 实时数据看板 Section -->
+  <section id="stats" class="py-16 px-6 max-w-6xl mx-auto border-t border-slate-800">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl font-bold text-white mb-2">GitHub 开源数据与活跃动态</h2>
+      <p class="text-slate-400">原生直连 GitHub 官方 API 实时展示数据</p>
     </div>
-    <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-      <img src="https://github-readme-stats.vercel.app/api?username=le-temps&show_icons=true&theme=tokyonight&hide_border=true&bg_color=1e293b" alt="le-temps stats" class="rounded-xl shadow-lg w-full md:w-auto" />
-      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=le-temps&layout=compact&theme=tokyonight&hide_border=true&bg_color=1e293b" alt="le-temps top langs" class="rounded-xl shadow-lg w-full md:w-auto" />
+
+    <!-- 原生动态数据指标卡片 -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="p-6 rounded-2xl bg-slate-800/60 border border-slate-800 text-center">
+        <div class="text-3xl font-extrabold text-blue-400 font-mono" id="stat-repos">28</div>
+        <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">公开仓库 (Repos)</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-slate-800/60 border border-slate-800 text-center">
+        <div class="text-3xl font-extrabold text-indigo-400 font-mono">USTC</div>
+        <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">机构 / 高校 (Org)</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-slate-800/60 border border-slate-800 text-center">
+        <div class="text-3xl font-extrabold text-emerald-400 font-mono" id="stat-followers">0</div>
+        <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">关注者 (Followers)</div>
+      </div>
+      <div class="p-6 rounded-2xl bg-slate-800/60 border border-slate-800 text-center">
+        <div class="text-3xl font-extrabold text-purple-400 font-mono" id="stat-years">5 年+</div>
+        <div class="text-xs text-slate-400 mt-1 uppercase tracking-wider font-semibold">开源探索历程</div>
+      </div>
+    </div>
+
+    <!-- GitHub 贡献热力图 (Contribution Heatmap) -->
+    <div class="p-6 rounded-2xl bg-slate-800/60 border border-slate-800">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-sm font-bold text-slate-300 flex items-center gap-2">
+          <i class="fa-solid fa-chart-simple text-blue-400"></i> GitHub 贡献热力图 (Contribution Graph)
+        </h3>
+        <a href="https://github.com/le-temps" target="_blank" class="text-xs text-blue-400 hover:underline">查看完整 Profile →</a>
+      </div>
+      <div class="overflow-x-auto py-2 flex justify-center">
+        <img src="https://ghchart.rshah.org/3b82f6/le-temps" alt="le-temps GitHub chart" class="max-w-full rounded" onerror="this.style.display='none'" />
+      </div>
     </div>
   </section>
 
@@ -176,20 +255,41 @@
   <footer id="contact" class="py-16 px-6 max-w-6xl mx-auto border-t border-slate-800 text-center">
     <h2 class="text-2xl font-bold text-white mb-4">期待与你交流！</h2>
     <p class="text-slate-400 max-w-lg mx-auto mb-8">
-      欢迎技术交流、项目探讨与开源协作。
+      欢迎学术探讨、算法合作、LLM Agent 实践交流。
     </p>
     <div class="flex items-center justify-center gap-6 mb-12">
-      <a href="https://github.com/le-temps" target="_blank" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-brand text-slate-300 hover:text-white flex items-center justify-center transition-all shadow-md">
+      <a href="https://github.com/le-temps" target="_blank" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-brand text-slate-300 hover:text-white flex items-center justify-center transition-all shadow-md" title="GitHub">
         <i class="fa-brands fa-github text-lg"></i>
       </a>
-      <a href="mailto:contact@le-temps.dev" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-brand text-slate-300 hover:text-white flex items-center justify-center transition-all shadow-md">
-        <i class="fa-solid fa-envelope text-lg"></i>
+      <a href="https://github.com/le-temps" target="_blank" class="w-12 h-12 rounded-full bg-slate-800 hover:bg-brand text-slate-300 hover:text-white flex items-center justify-center transition-all shadow-md" title="USTC Profile">
+        <i class="fa-solid fa-graduation-cap text-lg"></i>
       </a>
     </div>
     <p class="text-xs text-slate-500">
-      © 2026 le-temps. Powered by GitHub Pages & Tailwind CSS.
+      © 2026 Joy (le-temps) · Hosted on GitHub Pages · USTC
     </p>
   </footer>
+
+  <!-- 客户端原生 GitHub API 动态更新脚本（零依赖，秒加载） -->
+  <script>
+    async function loadGitHubData() {
+      try {
+        const res = await fetch('https://api.github.com/users/le-temps');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.public_repos !== undefined) {
+            document.getElementById('stat-repos').innerText = data.public_repos;
+          }
+          if (data.followers !== undefined) {
+            document.getElementById('stat-followers').innerText = data.followers;
+          }
+        }
+      } catch (e) {
+        console.log('GitHub API loaded with fallback values');
+      }
+    }
+    loadGitHubData();
+  </script>
 
 </body>
 </html>
