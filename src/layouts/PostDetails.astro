@@ -57,7 +57,7 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       </a>
     </div>
 
-    <!-- Table of Contents Collapsible Component matching screenshot -->
+    <!-- Table of Contents Collapsible Component -->
     {filteredHeadings.length > 0 && (
       <details class="my-6 border border-skin-line rounded p-4 bg-skin-card bg-opacity-30">
         <summary class="cursor-pointer font-bold text-base text-skin-base select-none font-mono">
@@ -111,4 +111,69 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
       </div>
     </div>
   </main>
+
+  <!-- Dynamic Mermaid Diagram Client-side Renderer -->
+  <script is:inline type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    function renderMermaidDiagrams() {
+      const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark';
+      
+      const codeBlocks = document.querySelectorAll('pre');
+      let found = false;
+
+      codeBlocks.forEach((pre) => {
+        const code = pre.querySelector('code');
+        const text = (code?.innerText || pre.innerText || '').trim();
+
+        const isMermaid = 
+          pre.getAttribute('data-language') === 'mermaid' ||
+          pre.classList.contains('language-mermaid') ||
+          text.startsWith('graph ') ||
+          text.startsWith('graph\n') ||
+          text.startsWith('sequenceDiagram') ||
+          text.startsWith('flowchart ') ||
+          text.startsWith('classDiagram') ||
+          text.startsWith('stateDiagram');
+
+        if (isMermaid && !pre.classList.contains('mermaid-rendered')) {
+          const div = document.createElement('div');
+          div.className = 'mermaid my-6 flex justify-center bg-skin-card bg-opacity-30 p-4 rounded-xl border border-skin-line overflow-x-auto';
+          div.textContent = text;
+          pre.classList.add('mermaid-rendered');
+          pre.parentNode?.replaceChild(div, pre);
+          found = true;
+        }
+      });
+
+      if (found || document.querySelector('.mermaid')) {
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: isDark ? 'dark' : 'neutral',
+          themeVariables: isDark ? {
+            darkMode: true,
+            background: '#212737',
+            primaryColor: '#343f60',
+            primaryTextColor: '#eaedf3',
+            primaryBorderColor: '#ff6b00',
+            lineColor: '#ff6b00',
+            secondaryColor: '#282c35',
+            tertiaryColor: '#212737'
+          } : {
+            darkMode: false,
+            primaryColor: '#e0effe',
+            primaryTextColor: '#212121',
+            primaryBorderColor: '#006cac',
+            lineColor: '#006cac'
+          }
+        });
+        mermaid.run({
+          querySelector: '.mermaid'
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', renderMermaidDiagrams);
+    document.addEventListener('astro:page-load', renderMermaidDiagrams);
+  </script>
 </BaseLayout>
