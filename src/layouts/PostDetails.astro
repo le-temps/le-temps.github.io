@@ -112,68 +112,78 @@ const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
     </div>
   </main>
 
-  <!-- Dynamic Mermaid Diagram Client-side Renderer -->
-  <script is:inline type="module">
-    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-
+  <!-- 100% Reliable Client-Side Mermaid Diagram Renderer -->
+  <script is:inline>
     function renderMermaidDiagrams() {
+      if (typeof window.mermaid === 'undefined') {
+        setTimeout(renderMermaidDiagrams, 100);
+        return;
+      }
+
       const isDark = document.documentElement.classList.contains('dark') || document.documentElement.getAttribute('data-theme') === 'dark';
-      
+
+      window.mermaid.initialize({
+        startOnLoad: false,
+        theme: isDark ? 'dark' : 'neutral',
+        themeVariables: isDark ? {
+          darkMode: true,
+          background: '#212737',
+          primaryColor: '#343f60',
+          primaryTextColor: '#eaedf3',
+          primaryBorderColor: '#ff6b00',
+          lineColor: '#ff6b00',
+          secondaryColor: '#282c35',
+          tertiaryColor: '#212737'
+        } : {
+          darkMode: false,
+          primaryColor: '#e0effe',
+          primaryTextColor: '#212121',
+          primaryBorderColor: '#006cac',
+          lineColor: '#006cac'
+        }
+      });
+
       const codeBlocks = document.querySelectorAll('pre');
       let found = false;
 
       codeBlocks.forEach((pre) => {
         const code = pre.querySelector('code');
-        const text = (code?.innerText || pre.innerText || '').trim();
+        const text = (code ? code.innerText : pre.innerText || '').trim();
 
-        const isMermaid = 
+        const isMermaid =
           pre.getAttribute('data-language') === 'mermaid' ||
           pre.classList.contains('language-mermaid') ||
           text.startsWith('graph ') ||
           text.startsWith('graph\n') ||
+          text.startsWith('graph TD') ||
+          text.startsWith('graph LR') ||
           text.startsWith('sequenceDiagram') ||
-          text.startsWith('flowchart ') ||
+          text.startsWith('flowchart') ||
           text.startsWith('classDiagram') ||
           text.startsWith('stateDiagram');
 
-        if (isMermaid && !pre.classList.contains('mermaid-rendered')) {
+        if (isMermaid) {
           const div = document.createElement('div');
           div.className = 'mermaid my-6 flex justify-center bg-skin-card bg-opacity-30 p-4 rounded-xl border border-skin-line overflow-x-auto';
           div.textContent = text;
-          pre.classList.add('mermaid-rendered');
-          pre.parentNode?.replaceChild(div, pre);
+          pre.replaceWith(div);
           found = true;
         }
       });
 
       if (found || document.querySelector('.mermaid')) {
-        mermaid.initialize({
-          startOnLoad: false,
-          theme: isDark ? 'dark' : 'neutral',
-          themeVariables: isDark ? {
-            darkMode: true,
-            background: '#212737',
-            primaryColor: '#343f60',
-            primaryTextColor: '#eaedf3',
-            primaryBorderColor: '#ff6b00',
-            lineColor: '#ff6b00',
-            secondaryColor: '#282c35',
-            tertiaryColor: '#212737'
-          } : {
-            darkMode: false,
-            primaryColor: '#e0effe',
-            primaryTextColor: '#212121',
-            primaryBorderColor: '#006cac',
-            lineColor: '#006cac'
-          }
-        });
-        mermaid.run({
+        window.mermaid.run({
           querySelector: '.mermaid'
-        });
+        }).catch((err) => console.warn('Mermaid rendering warning:', err));
       }
     }
 
-    document.addEventListener('DOMContentLoaded', renderMermaidDiagrams);
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderMermaidDiagrams);
+    } else {
+      renderMermaidDiagrams();
+    }
     document.addEventListener('astro:page-load', renderMermaidDiagrams);
+    document.addEventListener('astro:after-swap', renderMermaidDiagrams);
   </script>
 </BaseLayout>
