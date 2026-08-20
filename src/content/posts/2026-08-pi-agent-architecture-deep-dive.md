@@ -1,6 +1,6 @@
 ---
 title: "Pi Agent 架构设计与实现技术评估报告"
-date: 2026-08-20
+date: 2026-08-20T03:30:00+08:00
 description: "深度剖析面向软件工程场景的终端 AI Coding Agent 框架：DAG 树形会话存储、非对称上下文滑动压实、Prompt Cache 保序优化与事务化状态机。"
 category: "AI"
 tags: ["AI-Agent", "Coding-Agent", "Architecture", "TypeScript", "LLM"]

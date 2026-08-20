@@ -1,6 +1,6 @@
 ---
 title: "DeepSeek-V4 技术架构与高效百万上下文推理工程评估报告"
-date: 2026-08-20
+date: 2026-08-20T22:45:00+08:00
 description: "深入剖析 DeepSeek-V4 (1.6T MoE / 49B 激活) 的底层系统架构：CSA/HCA/SWA 三阶混合注意力、流形约束超连接 (mHC)、Birkhoff 多面体双随机残差与 Muon 优化器在 1M 上下文下的工程实现。"
 category: "AI"
 tags: ["DeepSeek-V4", "LLM", "MoE", "mHC", "CSA", "Muon", "Architecture"]

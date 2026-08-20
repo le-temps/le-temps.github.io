@@ -5,9 +5,8 @@ import Socials from '../components/Socials.astro';
 import { getPublishedPosts } from '../utils/content';
 
 const posts = await getPublishedPosts();
-const featuredPosts = posts.filter((p) => p.data.featured);
-const displayFeatured = featuredPosts.length > 0 ? featuredPosts : posts.slice(0, 3);
-const recentPosts = posts.filter((p) => !displayFeatured.includes(p));
+const featuredPosts = posts.filter((p) => p.data.featured).slice(0, 2);
+const recentPosts = posts.slice(0, 4);
 ---
 
 <BaseLayout>
@@ -48,17 +47,20 @@ const recentPosts = posts.filter((p) => !displayFeatured.includes(p));
       </div>
     </section>
 
-    <hr class="border-skin-line border-dashed my-6" />
-
-    <!-- Featured Section -->
-    <section id="featured" class="pt-6 pb-6">
-      <h2 class="text-2xl font-bold tracking-wide text-skin-base font-mono">Featured</h2>
-      <ul>
-        {displayFeatured.map((post) => (
-          <Card post={post} secHeading={false} />
-        ))}
-      </ul>
-    </section>
+    {featuredPosts.length > 0 && (
+      <>
+        <hr class="border-skin-line border-dashed my-6" />
+        <!-- Featured Section -->
+        <section id="featured" class="pt-6 pb-6">
+          <h2 class="text-2xl font-bold tracking-wide text-skin-base font-mono">Featured</h2>
+          <ul>
+            {featuredPosts.map((post) => (
+              <Card post={post} secHeading={false} />
+            ))}
+          </ul>
+        </section>
+      </>
+    )}
 
     {recentPosts.length > 0 && (
       <>

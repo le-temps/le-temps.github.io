@@ -1,6 +1,6 @@
 ---
 title: "Kimi K3 技术报告深度拆解：2.8T 开源基座的 KDA 线性注意力、Stable LatentMoE 与 AgentENV 基础设施"
-date: 2026-08-20
+date: 2026-08-20T22:30:00+08:00
 description: "全面剖析月之暗面 Kimi K3（2.8T MoE / 104B 激活）的核心架构突破：Kimi Delta Attention (KDA) 3:1 混合注意力、Attention Residuals (AttnRes)、Stable LatentMoE 拓扑与微虚拟机 AgentENV 强化学习基础设施。"
 category: "AI"
 tags: ["Kimi-K3", "LLM", "MoE", "KDA", "Architecture", "AgentENV", "Deep-Dive"]
